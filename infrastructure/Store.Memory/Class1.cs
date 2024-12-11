@@ -6,9 +6,9 @@ namespace Store.Memory
     {
         private readonly Ball[] balls = new[]
         {
-            new Ball(1, "Мяч волейбольный Demix VLPU440 Super Touch"),
-            new Ball(2, "Мяч волейбольный TORRES BM850 V42325"),
-            new Ball(3, "Мяч волейбольный MIKASA V330W"),
+            new Ball(1, "Demix VLPU440 Super Touch"),
+            new Ball(2, "TORRES BM850 V42325"),
+            new Ball(3, "MIKASA V330W"),
         };
 
 
