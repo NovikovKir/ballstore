@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Store
 {
-    internal interface IBallRepository
+    public interface IBallRepository
     {
+        Ball[] GetAllByTitle(string titlePart);
     }
 }

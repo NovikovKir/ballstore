@@ -1,13 +1,12 @@
 ﻿namespace Store;
-
-public class Balls
+public class Ball
 {
     public int ID { get; }
 
 
     public string Name { get; }
 
-    public Balls(int id, string name)
+    public Ball(int id, string name)
     {
         ID = id;
         Name = name;
