@@ -1,7 +1,7 @@
 ﻿namespace Store;
 public class Ball
 {
-    public int ID { get; }
+    public int Id { get; }
 
     public string Name { get; }
 
@@ -16,7 +16,7 @@ public class Ball
 
     public Ball(int id, string name, string brand, string model, string description, decimal price)
     {
-        ID = id;
+        Id = id;
         Name = name;
         Brand = brand;
         Model = model;

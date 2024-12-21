@@ -22,7 +22,7 @@ namespace BallStore.Tests
 
             var actual = ballService.GetAllByQuery(validBrand);
 
-            Assert.Collection(actual, ball => Assert.Equal(1, ball.ID));
+            Assert.Collection(actual, ball => Assert.Equal(1, ball.Id));
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace BallStore.Tests
 
             var actual = ballService.GetAllByQuery(invalidBrand);
 
-            Assert.Collection(actual, ball => Assert.Equal(2, ball.ID));
+            Assert.Collection(actual, ball => Assert.Equal(2, ball.Id));
         }
     }
 }

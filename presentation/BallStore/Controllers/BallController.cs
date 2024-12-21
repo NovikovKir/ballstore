@@ -12,6 +12,7 @@ namespace BallStore.Controllers
         {
             this.ballRepository = ballRepository;
         }
+
         public IActionResult Index(int id)
         {
             Ball ball = ballRepository.GetById(id);

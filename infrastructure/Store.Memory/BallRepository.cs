@@ -22,7 +22,7 @@ namespace Store.Memory
 
         public Ball GetById(int id)
         {
-            return balls.Single(ball => ball.ID == id);
+            return balls.Single(ball => ball.Id == id);
         }
     }
 }
