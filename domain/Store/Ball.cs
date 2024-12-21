@@ -9,13 +9,19 @@ public class Ball
 
     public string Model { get; }
 
+    public string Description { get; }
 
-    public Ball(int id, string name, string brand, string model)
+    public decimal Price { get; }
+
+
+    public Ball(int id, string name, string brand, string model, string description, decimal price)
     {
         ID = id;
         Name = name;
         Brand = brand;
         Model = model;
+        Description = description;
+        Price = price;
     }
 
     static public bool IsBrandOrModel(string s)

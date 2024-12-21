@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BallStore", "presentation\BallStore\BallStore.csproj", "{6C4154A9-06AA-4C1B-A611-E759AEDAC68C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallStore.Tests", "domains\BallStore.Tests\BallStore.Tests.csproj", "{428FAFF6-6293-4431-9ABE-446178DDECAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BallStore.Tests", "domains\BallStore.Tests\BallStore.Tests.csproj", "{428FAFF6-6293-4431-9ABE-446178DDECAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

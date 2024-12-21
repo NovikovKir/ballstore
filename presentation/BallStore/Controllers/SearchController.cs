@@ -15,9 +15,9 @@ namespace BallStore.Controllers
         // GET: HomeController1
         public ActionResult Index(string query)
         {
-            var balls = ballService.GetAllByQuery(query);
+            var ball = ballService.GetAllByQuery(query);
 
-            return View(balls);
+            return View("Index", ball);
         }
 
         // GET: HomeController1/Details/5

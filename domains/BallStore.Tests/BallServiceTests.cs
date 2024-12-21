@@ -15,7 +15,7 @@ namespace BallStore.Tests
         {
             var ballRepositoryStub = new Mock<IBallRepository>();
             ballRepositoryStub.Setup(x => x.GetAllByBrandOrModel(It.IsAny<string>()))
-                .Returns(new[] {new Ball(1, "", "", "") });
+                .Returns(new[] {new Ball(1, "", "", "", "", 1m) });
 
             var ballService = new BallService(ballRepositoryStub.Object);
             var validBrand = "MIKASA";
@@ -30,7 +30,7 @@ namespace BallStore.Tests
         {
             var ballRepositoryStub = new Mock<IBallRepository>();
             ballRepositoryStub.Setup(x => x.GetAllByBrandOrModel(It.IsAny<string>()))
-                .Returns(new[] { new Ball(2, "", "", "") });
+                .Returns(new[] { new Ball(2, "", "", "", "", 0m )});
 
             var ballService = new BallService(ballRepositoryStub.Object);
             var invalidBrand = "     ";

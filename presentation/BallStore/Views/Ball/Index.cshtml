@@ -1,0 +1,9 @@
+﻿@model Ball
+
+@{
+    ViewData["Title"] = Model.Brand + " " + Model.Model;
+}
+
+<h1>@Model.Name @Model.Brand @Model.Model</h1>
+<p>@Model.Description</p>
+<p>Цена: <strong>@Model.Price</strong> рублей</p>

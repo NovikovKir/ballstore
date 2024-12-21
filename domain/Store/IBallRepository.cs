@@ -9,6 +9,6 @@ namespace Store
     public interface IBallRepository
     {
         Ball[] GetAllByBrandOrModel(string brandOrModel);
-
+        Ball GetById(int id);
     }
 }
