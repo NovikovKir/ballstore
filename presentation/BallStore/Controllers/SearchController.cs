@@ -6,16 +6,16 @@ namespace BallStore.Controllers
 {
     public class SearchController : Controller
     {
-        private readonly IBallRepository ballRepository;
+        private readonly BallService ballService;
 
-        public SearchController(IBallRepository ballReposiroty)
+        public SearchController(BallService ballService)
         {
-            this.ballRepository = ballReposiroty;
+            this.ballService = ballService;
         }
         // GET: HomeController1
         public ActionResult Index(string query)
         {
-            var balls = ballRepository.GetAllByTitle(query);
+            var balls = ballService.GetAllByQuery(query);
 
             return View(balls);
         }

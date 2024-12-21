@@ -8,6 +8,7 @@ namespace Store
 {
     public interface IBallRepository
     {
-        Ball[] GetAllByTitle(string titlePart);
+        Ball[] GetAllByBrandOrModel(string brandOrModel);
+
     }
 }

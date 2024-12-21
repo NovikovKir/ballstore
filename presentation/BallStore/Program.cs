@@ -8,6 +8,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IBallRepository, BallRepository>();
 
+builder.Services.AddSingleton<BallService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
