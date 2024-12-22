@@ -76,7 +76,7 @@ namespace BallStore.Controllers
 
             SaveOrderAndCart(order, cart);
 
-            return RedirectToAction("Index", "Ball", new { ballId });
+            return RedirectToAction("Index", "Order");
         }
                 
         private (Order order, Cart cart) GetOrCreateOrderAndCart()
@@ -104,14 +104,16 @@ namespace BallStore.Controllers
             HttpContext.Session.Set(cart);
         }
 
-        public ActionResult RemoveItem(int id)
+        public ActionResult RemoveItem(int ballId)
         {
             (Order order, Cart cart) = GetOrCreateOrderAndCart();
 
-            order.RemoveItem(id);
+            order.RemoveItem(ballId);
             SaveOrderAndCart(order, cart);
 
-            return RedirectToAction("Index", "Ball", new { id });
+            return RedirectToAction("Index", "Order");
+
+
         }
     }
 }
