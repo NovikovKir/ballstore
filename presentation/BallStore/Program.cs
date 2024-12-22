@@ -15,7 +15,7 @@ builder.Services.AddSession(options =>
 
 );
 builder.Services.AddSingleton<IBallRepository, BallRepository>();
-
+builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
 builder.Services.AddSingleton<BallService>();
 
 var app = builder.Build();

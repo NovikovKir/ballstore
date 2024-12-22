@@ -8,31 +8,33 @@ namespace BallStore.Controllers
     public class CartController : Controller
     {
         private readonly IBallRepository ballRepository;
+        private readonly IOrderRepository orderRepository;
 
-        public CartController(IBallRepository ballRepository)
+        public CartController(IBallRepository ballRepository, IOrderRepository orderRepository)
         {
             this.ballRepository = ballRepository;
+            this.orderRepository = orderRepository;
         }
         public ActionResult Add(int id)
         {
-            var ball = ballRepository.GetById(id);
+            Order order;
             Cart cart;
-            if(!HttpContext.Session.TryGetCart(out cart))
+            if(HttpContext.Session.TryGetCart(out cart))
             {
-                cart = new Cart();
-            }
-
-            if (cart.Items.ContainsKey(id))
-            {
-                cart.Items[id]++;
+                order = orderRepository.GetById(cart.OrderId);
             }
             else
             {
-                cart.Items[id] = 1;
+                order = orderRepository.Create();
+                cart = new Cart(order.Id);
             }
 
-            cart.Amount += ball.Price;
+            var ball = ballRepository.GetById(id);
+            order.AddItem(ball, 1);
+            orderRepository.Update(order);
 
+            cart.TotalCount = order.TotalCount;
+            cart.TotalPrice = order.TotalPrice;
             HttpContext.Session.Set(cart);
 
             return RedirectToAction("Index", "Ball", new {id});
