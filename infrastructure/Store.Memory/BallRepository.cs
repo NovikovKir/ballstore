@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System;
+
 namespace Store.Memory
 {
     public class BallRepository : IBallRepository
@@ -18,6 +19,14 @@ namespace Store.Memory
             return balls.Where(ball => ball.Brand.Contains(query) || ball.Model.Contains(query))
                 .ToArray();
 
+        }
+
+        public Ball[] GetAllByIds(IEnumerable<int> ballIds)
+        {
+            var foundBalls = from ball in balls
+                             join ballId in ballIds on ball.Id equals ballId
+                             select ball;
+            return foundBalls.ToArray();
         }
 
         public Ball GetById(int id)
