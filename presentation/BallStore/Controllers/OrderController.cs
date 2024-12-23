@@ -8,6 +8,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Store.Contractors;
 using System.Text;
+using BallStore.Contractors;
 
 namespace BallStore.Controllers
 {
@@ -17,19 +18,22 @@ namespace BallStore.Controllers
         private readonly IOrderRepository orderRepository;
         private readonly INotificationService notificationService;
         private readonly IEnumerable<IDeliveryService> deliveryServices;
+        private readonly IEnumerable<IWebContractorsService> webContractorServices;
         private readonly IEnumerable<IPaymentService> paymentServices;
 
         public OrderController(IBallRepository ballRepository,
                                IOrderRepository orderRepository, 
                                INotificationService notificationService,
                                IEnumerable<IDeliveryService> deliveryServices,
-                               IEnumerable<IPaymentService> paymentServices)
+                               IEnumerable<IPaymentService> paymentServices,
+                               IEnumerable<IWebContractorsService> webContractorServices)
         {
             this.ballRepository = ballRepository;
             this.orderRepository = orderRepository;
             this.notificationService = notificationService;
             this.deliveryServices = deliveryServices;
             this.paymentServices = paymentServices;
+            this.webContractorServices = webContractorServices;
         }
 
         [HttpGet]
@@ -208,7 +212,7 @@ namespace BallStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult NextDelivery(int id, string uniqueCode, int step, Dictionary<string, string> values)
+        public ActionResult NextDelivery(int id, string uniqueCode, int step, Dictionary<string, string> values)
         {
             var deliveryService = deliveryServices.Single(service => service.UniqueCode == uniqueCode);
 
@@ -230,15 +234,22 @@ namespace BallStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult StartPayment(int id, string uniqueCode)
+        public ActionResult StartPayment(int id, string uniqueCode)
         {
             var paymentService = paymentServices.Single(service => service.UniqueCode == uniqueCode);
             var order = orderRepository.GetById(id);
+
             var form = paymentService.CreateForm(order);
+
+            var webContractorService = webContractorServices.SingleOrDefault(service => service.UniqueCode == uniqueCode);
+
+            if (webContractorService != null)
+                return Redirect(webContractorService.GetUri);
+
             return View("PaymentStep", form);
         }
         [HttpPost]
-        public IActionResult NextPayment(int id, string uniqueCode, int step, Dictionary<string, string> values)
+        public ActionResult NextPayment(int id, string uniqueCode, int step, Dictionary<string, string> values)
         {
             var paymentService = paymentServices.Single(service => service.UniqueCode == uniqueCode);
             var form = paymentService.MoveNextForm(id, step, values);
@@ -261,6 +272,10 @@ namespace BallStore.Controllers
             return Regex.IsMatch(cellPhone, @"^\+?\d{11}$");
         }
 
-
+        public IActionResult Finish()
+        {
+            HttpContext.Session.RemoveCart();
+            return View();
+        }
     }
 }

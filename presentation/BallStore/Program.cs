@@ -2,6 +2,8 @@ using Store;
 using Store.Memory;
 using Store.Messages;
 using Store.Contractors;
+using BallStore.YandexKassa;
+using BallStore.Contractors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,9 @@ builder.Services.AddSingleton<BallService>();
 builder.Services.AddSingleton<INotificationService, DebugNotificationService>();
 builder.Services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
 builder.Services.AddSingleton<IPaymentService, CashPaymentService>();
+builder.Services.AddSingleton<IPaymentService, YandexKassaPaymentService>();
+builder.Services.AddSingleton<IWebContractorsService, YandexKassaPaymentService>();
+
 
 var app = builder.Build();
 
@@ -45,5 +50,10 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapAreaControllerRoute(
+    name: "yandex.kassa",
+    areaName: "YandexKassa",
+    pattern: "YandexKassa/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
