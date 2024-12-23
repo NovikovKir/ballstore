@@ -1,5 +1,6 @@
 using Store;
 using Store.Memory;
+using Store.Messages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddSingleton<IBallRepository, BallRepository>();
 builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
 builder.Services.AddSingleton<BallService>();
+builder.Services.AddSingleton<INotificationService, DebugNotificationService>();
 
 var app = builder.Build();
 
