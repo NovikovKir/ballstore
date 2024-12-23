@@ -6,6 +6,8 @@ using Store.Messages;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using Store.Contractors;
+using System.Text;
 
 namespace BallStore.Controllers
 {
@@ -14,12 +16,15 @@ namespace BallStore.Controllers
         private readonly IBallRepository ballRepository;
         private readonly IOrderRepository orderRepository;
         private readonly INotificationService notificationService;
+        private readonly IEnumerable<IDeliveryService> deliveryServices;
 
-        public OrderController(IBallRepository ballRepository, IOrderRepository orderRepository, INotificationService notificationService)
+        public OrderController(IBallRepository ballRepository, IOrderRepository orderRepository, 
+            INotificationService notificationService, IEnumerable<IDeliveryService> deliveryServices)
         {
             this.ballRepository = ballRepository;
             this.orderRepository = orderRepository;
             this.notificationService = notificationService;
+            this.deliveryServices = deliveryServices;
         }
 
         [HttpGet]
@@ -122,7 +127,7 @@ namespace BallStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult SendConfirmationCode(int id, string cellPhone)
+        public ActionResult SendConfirmationCode(int id, string cellPhone)
         {
             var order = orderRepository.GetById(id);
             var model = Map(order);
@@ -143,7 +148,7 @@ namespace BallStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult StartDelivery(int id, string cellPhone, int code)
+        public ActionResult Confirmate(int id, string cellPhone, int code)
         {
             int? storedCode = HttpContext.Session.GetInt32(cellPhone);
             if (storedCode == null)
@@ -172,9 +177,39 @@ namespace BallStore.Controllers
                                 },
                             }); ;
             }
-            //
-            return View();
+            
+            HttpContext.Session.Remove(cellPhone);
+            var model = new DeliveryModel
+            {
+                OrderId = id,
+                Methods = deliveryServices.ToDictionary(service => service.UniqueCode,
+                                                        service => service.Title),
+            };
+
+            return View("DeliveryMethod", model);
         }
+
+        [HttpPost]
+        public ActionResult StartDelivery(int id, string uniqueCode)
+        {
+            var deliveryService = deliveryServices.Single(service => service.UniqueCode == uniqueCode);
+            var order = orderRepository.GetById(id);
+            var form = deliveryService.CreateForm(order);
+            return View("DeliveryStep", form);
+        }
+
+        [HttpPost]
+        public IActionResult NextDelivery(int id, string uniqueCode, int step, Dictionary<string, string> values)
+        {
+            var deliveryService = deliveryServices.Single(service => service.UniqueCode == uniqueCode);
+            var form = deliveryService.MoveNext(id, step, values);
+            if (form.IsFinal)
+            {
+                return null;
+            }
+            return View("DeliveryStep", form);
+        }
+
         private bool IsValidCellPhone(string cellPhone)
         {
             if (cellPhone == null)
