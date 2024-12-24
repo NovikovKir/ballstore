@@ -79,8 +79,11 @@ namespace BallStore.Controllers
             (Order order, Cart cart) = GetOrCreateOrderAndCart();
             
             var ball = ballRepository.GetById(ballId);
-                        
-            order.AddOrUpdateItem(ball, count);
+
+            if (order.Items.TryGet(ballId, out OrderItem orderItem))
+                orderItem.Count += count;
+            else
+                order.Items.Add(ballId, ball.Price, count);
 
             SaveOrderAndCart(order, cart);
 
@@ -92,7 +95,7 @@ namespace BallStore.Controllers
         {
             (Order order, Cart cart) = GetOrCreateOrderAndCart();
 
-            order.GetItem(ballId).Count = count;
+            order.Items.Get(ballId).Count = count;
 
             SaveOrderAndCart(order, cart);
 
@@ -129,7 +132,7 @@ namespace BallStore.Controllers
         {
             (Order order, Cart cart) = GetOrCreateOrderAndCart();
 
-            order.RemoveItem(ballId);
+            order.Items.Remove(ballId);
             SaveOrderAndCart(order, cart);
 
             return RedirectToAction("Index", "Order");
