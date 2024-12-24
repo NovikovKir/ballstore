@@ -24,13 +24,13 @@ public class Ball
         Price = price;
     }
 
-    static public bool IsBrandOrModel(string s)
+    public static bool IsBrandOrModel(string s)
     {
         if (s == null) return false;
 
-        s = s.Replace("-", "")
-            .Replace(" ", "")
-            .ToUpper();
+        _ = s.Replace("-", "");
+        _ = s.Replace(" ", "");
+        _ = s.ToUpper();
 
         return true;
     }

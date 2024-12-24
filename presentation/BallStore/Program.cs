@@ -4,10 +4,12 @@ using Store.Messages;
 using Store.Contractors;
 using BallStore.YandexKassa;
 using BallStore.Contractors;
+using Store.Web.App;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -26,6 +28,7 @@ builder.Services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
 builder.Services.AddSingleton<IPaymentService, CashPaymentService>();
 builder.Services.AddSingleton<IPaymentService, YandexKassaPaymentService>();
 builder.Services.AddSingleton<IWebContractorsService, YandexKassaPaymentService>();
+builder.Services.AddSingleton<OrderService>();
 
 
 var app = builder.Build();
@@ -48,12 +51,11 @@ app.UseAuthorization();
 app.UseSession();
 
 app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "yandex.kassa",
-    areaName: "YandexKassa",
-    pattern: "YandexKassa/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

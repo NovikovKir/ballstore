@@ -2,8 +2,8 @@
 {
     public interface IWebContractorsService
     {
-        string UniqueCode { get; }
+        string Name { get; }
 
-        string GetUri { get; }
+        Uri StartSession(IReadOnlyDictionary<string, string> parameters, Uri returnUri);
     }
 }

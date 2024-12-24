@@ -1,22 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Store;
 using Store.Memory;
+using Store.Web.App;
 
 namespace BallStore.Controllers
 {
     public class BallController : Controller
     {
-        private readonly IBallRepository ballRepository;
+        private readonly BallService ballService;
 
-        public BallController(IBallRepository ballRepository)
+        public BallController(BallService ballService)
         {
-            this.ballRepository = ballRepository;
+            this.ballService = ballService;
         }
 
         public IActionResult Index(int id)
         {
-            Ball ball = ballRepository.GetById(id);
-            return View(ball);
+            var model = ballService.GetById(id);    
+
+            return View(model);
         }
     }
 }
