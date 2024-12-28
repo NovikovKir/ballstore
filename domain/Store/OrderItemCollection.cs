@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Store.Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,12 +11,16 @@ namespace Store
 {
     public class OrderItemCollection : IReadOnlyCollection<OrderItem>
     {
+        private readonly OrderDto orderDto;
         private readonly List<OrderItem> items;
-        public OrderItemCollection(IEnumerable<OrderItem> items)
+        public OrderItemCollection(OrderDto orderDto)
         {
-            if (items == null)
-                throw new ArgumentNullException(nameof(items));
-            this.items = new List<OrderItem>(items);
+            if (orderDto == null)
+                throw new ArgumentNullException(nameof(orderDto));
+            this.orderDto = orderDto;
+            items = orderDto.Items
+                            .Select(OrderItem.Mapper.Map)
+                            .ToList();
         }
         public int Count => items.Count;
         public IEnumerator<OrderItem> GetEnumerator()
@@ -46,13 +52,24 @@ namespace Store
         {
             if (TryGet(ballId, out OrderItem orderItem))
                 throw new InvalidOperationException("Ball already exists.");
-            orderItem = new OrderItem(ballId, price, count);
+
+            var orderItemDto = OrderItem.DtoFactory.Create(orderDto, ballId, price, count);
+            orderDto.Items.Add(orderItemDto);
+            orderItem = OrderItem.Mapper.Map(orderItemDto);
+
             items.Add(orderItem);
+
             return orderItem;
         }
         public void Remove(int ballId)
         {
             items.Remove(Get(ballId));
+
+            var index = items.FindIndex(item => item.BallId == ballId);
+            if (index == -1)
+                throw new InvalidOperationException("Can't find ball to remove from order.");
+            orderDto.Items.RemoveAt(index);
+            items.RemoveAt(index);
         }
     }
 }

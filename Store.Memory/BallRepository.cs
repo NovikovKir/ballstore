@@ -5,7 +5,7 @@ namespace Store.Memory
 {
     public class BallRepository : IBallRepository
     {
-        private readonly Ball[] balls = new[]
+        /*private readonly Ball[] balls = new[]
         {
             new Ball(1, "Волейбольный мяч", "DEMIX", "VLPU440 Super Touch", "Волейбольный мяч Demix для тренировок и игр в зале и на открытых площадках.", 1999m),
             new Ball(2, "Волейбольный мяч", "TORRES", "BM850 V42325", "Волейбольный мяч BM850 — это классическая модель волейбольного мяча, самая универсальная из всего модельного ряда мячей Torres.", 3150m),
@@ -32,6 +32,20 @@ namespace Store.Memory
         public Ball GetById(int id)
         {
             return balls.Single(ball => ball.Id == id);
+        }*/
+        public Ball[] GetAllByBrandOrModel(string brandOrModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Ball[] GetAllByIds(IEnumerable<int> ballIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Ball GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

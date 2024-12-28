@@ -1,10 +1,12 @@
 using Store;
-using Store.Memory;
 using Store.Messages;
 using Store.Contractors;
 using BallStore.YandexKassa;
 using BallStore.Contractors;
 using Store.Web.App;
+using Store.Data.EF;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +22,8 @@ builder.Services.AddSession(options =>
 }
 
 );
-builder.Services.AddSingleton<IBallRepository, BallRepository>();
-builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
+
+builder.Services.AddEfRepositories(builder.Configuration.GetConnectionString("Store"));
 builder.Services.AddSingleton<BallService>();
 builder.Services.AddSingleton<INotificationService, DebugNotificationService>();
 builder.Services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
