@@ -18,9 +18,9 @@ namespace Store.Data.EF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Model = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "money", nullable: false)
                 },
@@ -35,12 +35,12 @@ namespace Store.Data.EF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CellPhone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    DeliveryUniqueCode = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    CellPhone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    DeliveryUniqueCode = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
                     DeliveryDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DeliveryPrice = table.Column<decimal>(type: "money", nullable: false),
                     DeliveryParameters = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PaymentServiceName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    PaymentServiceName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
                     PaymentDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaymentParameters = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -67,8 +67,7 @@ namespace Store.Data.EF.Migrations
                         name: "FK_OrderItems_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(

@@ -33,11 +33,11 @@ namespace Store.Data.EF
             modelBuilder.Entity<BallDto>(action =>
             {
                 action.Property(dto => dto.Brand)
-                      .IsRequired();
+                      .IsRequired(false);
                 action.Property(dto => dto.Model)
-                      .IsRequired();
+                      .IsRequired(false);
                 action.Property(dto => dto.Name)
-                      .IsRequired();
+                      .IsRequired(false);
                 action.Property(dto => dto.Price)
                       .HasColumnType("money");
                 action.HasData(
@@ -86,13 +86,16 @@ namespace Store.Data.EF
             modelBuilder.Entity<OrderDto>(action =>
             {
                 action.Property(dto => dto.CellPhone)
-                      .HasMaxLength(20);
+                      .HasMaxLength(20)
+                      .IsRequired(false);
                 action.Property(dto => dto.DeliveryUniqueCode)
-                      .HasMaxLength(40);
+                      .HasMaxLength(40)
+                      .IsRequired(false);
                 action.Property(dto => dto.DeliveryPrice)
                       .HasColumnType("money");
                 action.Property(dto => dto.PaymentServiceName)
-                      .HasMaxLength(40);
+                      .HasMaxLength(40)
+                      .IsRequired(false);
 
                 action.Property(dto => dto.DeliveryParameters)
                       .HasConversion(
@@ -125,7 +128,7 @@ namespace Store.Data.EF
                       .HasColumnType("money");
                 action.HasOne(dto => dto.Order)
                       .WithMany(dto => dto.Items)
-                      .IsRequired();
+                      .IsRequired(false);
             });
         }
     }

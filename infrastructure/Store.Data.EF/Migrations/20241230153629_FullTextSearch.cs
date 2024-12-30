@@ -10,7 +10,7 @@ namespace Store.Data.EF.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("CREATE FULLTEXT CATALOG BallStoreFullTextCatalog AS DEFAULT", suppressTransaction: true);
+            migrationBuilder.Sql("CREATE FULLTEXT CATALOG StoreFullTextCatalog AS DEFAULT", suppressTransaction: true);
             migrationBuilder.Sql("CREATE FULLTEXT INDEX ON Balls(Brand, Model) KEY INDEX PK_Balls WITH STOPLIST = SYSTEM", suppressTransaction: true);
         }
 

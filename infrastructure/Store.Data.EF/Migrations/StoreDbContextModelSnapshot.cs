@@ -30,7 +30,6 @@ namespace Store.Data.EF.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Brand")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -38,11 +37,9 @@ namespace Store.Data.EF.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -100,7 +97,6 @@ namespace Store.Data.EF.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CellPhone")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -116,7 +112,6 @@ namespace Store.Data.EF.Migrations
                         .HasColumnType("money");
 
                     b.Property<string>("DeliveryUniqueCode")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
@@ -129,7 +124,6 @@ namespace Store.Data.EF.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentServiceName")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
@@ -169,9 +163,7 @@ namespace Store.Data.EF.Migrations
                 {
                     b.HasOne("Store.Data.OrderDto", "Order")
                         .WithMany("Items")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("Order");
                 });
