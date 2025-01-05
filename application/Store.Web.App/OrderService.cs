@@ -188,6 +188,8 @@ namespace Store.Web.App
             order.Payment = payment;
             orderRepository.Update(order);
             Session.RemoveCart();
+            notificationService.StartProcess(order);
+
             return Map(order);
         }
     }
