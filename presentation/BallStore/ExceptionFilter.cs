@@ -13,8 +13,8 @@ namespace BallStore
         }
         public void OnException(ExceptionContext context)
         {
-            // (webHostEnvironment.IsDevelopment())
-            //  return;
+            if (webHostEnvironment.IsDevelopment())
+              return;
 
             if (context.Exception.TargetSite.Name == "ThrowNoElementsException")
             {
