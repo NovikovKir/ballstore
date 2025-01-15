@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,8 +18,9 @@ namespace Store.Messages
 
         public void StartProcess(Order order)
         {
-            using (var client = new SmtpClient())
+            using (var client = new SmtpClient("smtp.your-email-provider.com", 587))
             {
+                client.Credentials = new NetworkCredential("your-email@example.com", "your-email-password");
                 var message = new MailMessage("from@at.my.domain", "to@at.my.domain");
                 message.Subject = "Заказ #" + order.Id;
 

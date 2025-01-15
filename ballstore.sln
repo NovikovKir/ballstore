@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Web.App", "applicatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Data.EF", "infrastructure\Store.Data.EF\Store.Data.EF.csproj", "{936A7AFA-7F94-4DBD-A958-6D087097F767}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "registration", "registration", "{4227CF6F-85D2-4617-88DB-8EC3BA5F5849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegAndAuth", "RegAndAuth\RegAndAuth.csproj", "{E6001FD1-67DE-41A1-87CD-75CD324F4229}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,10 @@ Global
 		{936A7AFA-7F94-4DBD-A958-6D087097F767}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{936A7AFA-7F94-4DBD-A958-6D087097F767}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{936A7AFA-7F94-4DBD-A958-6D087097F767}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6001FD1-67DE-41A1-87CD-75CD324F4229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6001FD1-67DE-41A1-87CD-75CD324F4229}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6001FD1-67DE-41A1-87CD-75CD324F4229}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6001FD1-67DE-41A1-87CD-75CD324F4229}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +81,7 @@ Global
 		{DBDF20BD-CF87-4DA0-85E2-6BAAF019DB48} = {CE7DF936-2799-49F3-992D-3C332366D335}
 		{6F14CC04-0024-4E46-A4CD-224260B2D7BF} = {F73D0355-A6B1-45DE-922D-5890D5FB9AA1}
 		{936A7AFA-7F94-4DBD-A958-6D087097F767} = {3438588D-610F-4D51-B516-8F7E73EA7E2E}
+		{E6001FD1-67DE-41A1-87CD-75CD324F4229} = {4227CF6F-85D2-4617-88DB-8EC3BA5F5849}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D34B36D-6DAE-49DB-927F-C4C84D703A9E}
